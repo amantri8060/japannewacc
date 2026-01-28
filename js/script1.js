@@ -1,7 +1,7 @@
 
   $(document).ready(function() {
    var audioElement = document.createElement('audio');
-   audioElement.setAttribute('src', 'media/buzzer-bell.wavs');
+   audioElement.setAttribute('src', 'media.wavs');
 
    audioElement.addEventListener('ended', function() {
        this.play();
