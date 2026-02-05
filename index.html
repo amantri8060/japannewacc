@@ -279,7 +279,39 @@
         s.parentNode.insertBefore(t, s);
       })();
     </script>
+    
+<script>
+(function () {
+  let adBlocked = false;
 
+  // 1️⃣ Bait element check
+  const bait = document.createElement("div");
+  bait.className = "adsbox ad-banner ad-unit";
+  bait.style.cssText = "height:1px;position:absolute;left:-9999px;";
+  document.body.appendChild(bait);
+
+  const script = document.createElement("script");
+  script.src = "https://example.com/ads.js"; 
+  script.type = "text/javascript";
+  script.onerror = () => adBlocked = true;
+  document.head.appendChild(script);
+
+  fetch("https://example.com/ads-test", { mode: "no-cors" })
+    .catch(() => adBlocked = true);
+
+  setTimeout(function () {
+    if (bait.offsetHeight === 0) adBlocked = true;
+    bait.remove();
+
+    if (adBlocked) {
+      console.log("Ad blocker detected (strong check), site allowed");
+    } else {
+      console.log("No ad blocker detected");
+    }
+  }, 150);
+})();
+</script>
+    
 </body>
 <!-- Mirrored from bdsmjapanes.z31.web.core.windows.net/?video=5f926e29-6c87-4f2f-9636-719d9bc7522e by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 05 Jun 2025 13:24:11 GMT -->
 </html>
